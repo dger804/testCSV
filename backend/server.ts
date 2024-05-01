@@ -15,7 +15,16 @@ app.post('api/files', async (req, res) => {
   // save the JSON db or memory
   // return 200 with message and JSON
 
-  return res.status(200).json({ message: 'File upload successfully' })
+  return res.status(200).json({ data: [], message: 'File upload successfully' })
+})
+
+app.get('api/users', async (req, res) => {
+  // extract query param 'q' from the request
+  // validate we have the query param
+  // filter the data from db or memory with the query param
+  // return 200 with the filtered data
+
+  return res.status(200).json({ data: [] })
 })
 
 app.listen(port, () => {

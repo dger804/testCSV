@@ -13,7 +13,7 @@ let userData: Array<Record<string, string>> = []
 
 app.use(cors()) //enable cors
 
-app.post('api/files', upload.single('file'), async (req, res) => {
+app.post('/api/files', upload.single('file'), async (req, res) => {
   // extract file from request
   const { file } = req
   // validate that we have the file

@@ -51,7 +51,7 @@ export const Search = ({initialData}: {initialData:Data}) => {
                 {
                   Object
                     .entries(row)
-                    .map(([key, value]) => <p><strong>{key}</strong>{value}</p>)
+                    .map(([key, value]) => <p key={key}><strong>{key}</strong>{value}</p>)
                 }
               </article>
             </li>

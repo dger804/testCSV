@@ -1,16 +1,38 @@
 
+import { useState } from 'react'
 import './App.css'
 
+const APP_STATUS = {
+  IDLE: 'idle', // starting point
+  ERROR: 'error', // when error exist
+  READY_UPLOAD: 'ready_upload', // choosen file
+  UPLOADING: 'uploading', // uploading file
+  READY_USAGE: 'ready_usage' // uploaded file
+} as const
+const BUTTON_TEXT = {
+  [APP_STATUS.READY_UPLOAD]: 'Subir Archivo',
+  [APP_STATUS.UPLOADING]: 'Subiendo ...',
+}
+
+type AppStatusType = typeof APP_STATUS[keyof typeof APP_STATUS]
+
 function App() {
+  const [appStatus, setAppStatus] = useState<AppStatusType>(APP_STATUS.IDLE)
+  const [file, setFile] = useState<File | null>(null)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const [file] = event.target.files ?? []
-    console.log(file)
+
+    if (file) {
+      setFile(file)
+      setAppStatus(APP_STATUS.READY_UPLOAD)
+    }
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log("todo")
   }
+  const showButton = appStatus === APP_STATUS.READY_UPLOAD || appStatus === APP_STATUS.UPLOADING
 
   return (
     <>
@@ -18,15 +40,20 @@ function App() {
       <form onSubmit={handleSubmit}>
         <label>
           <input
+            disabled={appStatus === APP_STATUS.UPLOADING}
             onChange={handleInputChange}
             name='file'
             type="file"
             accept='.csv'
           />
         </label>
-        <button>
-          Subir archivo
-        </button>
+        {
+          showButton && (
+            <button>
+              {BUTTON_TEXT[appStatus]}
+            </button>
+          )
+        }
       </form>
     </>
   )

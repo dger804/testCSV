@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import './App.css'
+import { uploadFile } from './services/upload'
 
 const APP_STATUS = {
   IDLE: 'idle', // starting point
@@ -28,7 +29,7 @@ function App() {
       setAppStatus(APP_STATUS.READY_UPLOAD)
     }
   }
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (appStatus !== APP_STATUS.READY_UPLOAD || !file) {
@@ -37,6 +38,8 @@ function App() {
 
     setAppStatus(APP_STATUS.UPLOADING)
 
+    const [err, data] = await uploadFile(file)
+    console.log({ err, data })
   }
   const showButton = appStatus === APP_STATUS.READY_UPLOAD || appStatus === APP_STATUS.UPLOADING
 

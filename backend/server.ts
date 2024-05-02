@@ -28,7 +28,6 @@ app.post('/api/files', upload.single('file'), async (req, res) => {
   let json: Array<Record<string, string>> = []
   try {
     const rawCsv = Buffer.from(file.buffer).toString('utf-8')
-    console.log(rawCsv)
     // transform the string (CSV) to JSON
     json = csvToJson.fieldDelimiter(',').csvStringToJson(rawCsv)
   } catch (error) {

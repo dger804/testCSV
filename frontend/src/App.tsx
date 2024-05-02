@@ -30,7 +30,13 @@ function App() {
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log("todo")
+
+    if (appStatus !== APP_STATUS.READY_UPLOAD || !file) {
+      return
+    }
+
+    setAppStatus(APP_STATUS.UPLOADING)
+
   }
   const showButton = appStatus === APP_STATUS.READY_UPLOAD || appStatus === APP_STATUS.UPLOADING
 
@@ -49,7 +55,9 @@ function App() {
         </label>
         {
           showButton && (
-            <button>
+            <button
+              disabled={appStatus === APP_STATUS.UPLOADING}
+            >
               {BUTTON_TEXT[appStatus]}
             </button>
           )

@@ -4,6 +4,7 @@ import { Toaster, toast } from 'sonner'
 import './App.css'
 import { uploadFile } from './services/upload'
 import { type Data } from './types'
+import { Search } from './utils/Search'
 
 const APP_STATUS = {
   IDLE: 'idle', // starting point
@@ -21,7 +22,7 @@ type AppStatusType = typeof APP_STATUS[keyof typeof APP_STATUS]
 
 function App() {
   const [appStatus, setAppStatus] = useState<AppStatusType>(APP_STATUS.IDLE)
-  const [data, setData] = useState<Data>()
+  const [data, setData] = useState<Data>([])
   const [file, setFile] = useState<File | null>(null)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +85,11 @@ function App() {
           </form>
         )
       }
-
+      {
+        appStatus === APP_STATUS.READY_USAGE && (
+          <Search initialData={data} />
+        )
+      }
     </>
   )
 }

@@ -49,6 +49,8 @@ function App() {
       return
     }
 
+    console.log({ newData })
+
     setAppStatus(APP_STATUS.READY_USAGE)
     if (newData) setData(newData)
     toast.success('Archivo subido correctamente')

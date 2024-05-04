@@ -43,7 +43,8 @@ export const Search = ({initialData}: {initialData:Data}) => {
         <input
           onChange={handleSearch}
           type="search" 
-          placeholder="Buscar información ... " 
+          placeholder="Buscar información ... "
+          defaultValue={search}
         />
       </form>
       <ul>
